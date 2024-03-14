@@ -1,11 +1,18 @@
 const cards = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16];
-
+//const cards = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
 async function generateImagePairs() {
     const imagePairs = {};
     for (let i = 0; i < cards.length; i++) {
         if (!imagePairs[cards[i]]) {
-            const id = Math.floor(Math.random() * 1000) + 1;
-            const url = `https://picsum.photos/id/${id}/300/400`;
+            let id, url, response;
+            do {
+                id = Math.floor(Math.random() * 1000) + 1;
+                url = `https://picsum.photos/id/${id}/300/400`;
+                response = await fetch(url);
+                if (!response.ok) {
+                    console.log("Image does not exist:", url);
+                }
+            } while (!response.ok);
             imagePairs[cards[i]] = [url, url];
         }
     }
