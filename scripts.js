@@ -13,7 +13,10 @@ async function generateImagePairs() {
 }
 
 function shuffleCards(cards) {
-    cards.sort(() => Math.random() - 0.5);
+    for (let i = cards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
 }
 
 async function createCards() {
