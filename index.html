@@ -12,15 +12,15 @@
 <body>
     <h2>Jogo da Memória</h2>
     <div class="start">
-        <label for="numPairs">Escolha o número de pares de cartas (máximo 32):</label>
+        <label for="numPairs">Escolha o número de pares de cartas (máximo 32, o ideal é 16):</label>
         <input type="number" id="numPairs" min="2" max="32" value="16">
         <button id="start-button">Iniciar Jogo</button>
+        <div class="attempts-container">
+            <div class="attempts">Tentativas: 0</div>
+        </div>
     </div>
     <div class="congratulations-container"></div>
     <div class="container"></div>
-    <div class="attempts-container">
-        <div class="attempts">Tentativas: 0</div>
-    </div>
 </body>
 
 </html>
