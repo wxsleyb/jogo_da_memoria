@@ -1,21 +1,21 @@
 document.getElementById("start-button").addEventListener("click", async function () {
     const startButton = document.getElementById("start-button");
-    startButton.disabled = true; // Desabilita o botão
-    startButton.textContent = "Carregando jogo..."; // Altera o texto do botão
+    startButton.disabled = true;
+    startButton.textContent = "Carregando jogo..."; 
 
     const numPairs = parseInt(document.getElementById("numPairs").value);
     if (numPairs < 2 || numPairs > 32) {
         alert("Por favor, escolha um número entre 2 e 32.");
-        startButton.disabled = false; // Habilita o botão novamente
-        startButton.textContent = "Iniciar Jogo"; // Restaura o texto do botão
+        startButton.disabled = false;
+        startButton.textContent = "Iniciar Jogo"; 
         return;
     }
 
     const cards = Array.from({ length: numPairs * 2 }, (_, index) => Math.floor(index / 2) + 1);
-    await createCards(cards); // Espera a criação das cartas ser concluída
+    await createCards(cards);
 
-    startButton.disabled = false; // Habilita o botão novamente
-    startButton.textContent = "Iniciar Jogo"; // Restaura o texto do botão
+    startButton.disabled = false;
+    startButton.textContent = "Iniciar Jogo"; 
 });
 
 async function generateImagePairs(numPairs) {
@@ -47,7 +47,7 @@ async function createCards(cards) {
     const imagePairs = await generateImagePairs(numPairs);
     shuffleCards(cards);
     const cardList = document.querySelector(".container");
-    cardList.innerHTML = ""; // Limpa o contêiner de cartas antes de adicionar novas
+    cardList.innerHTML = "";
     attempts=0;
     updateAttempts();
     for (let i = 0; i < cards.length; i++) {
@@ -148,16 +148,40 @@ function showCongratulationsMessage() {
 async function restartGame() {
     const startButton = document.getElementById("start-button");
     const congratulationsMessage = document.querySelector(".congratulations-container");
-    congratulationsMessage.innerHTML = ""; // Remove a mensagem de parabéns
+    congratulationsMessage.innerHTML = "";
    
-    // Limpar o contêiner de cartas antes de criar novas cartas
+
     const cardList = document.querySelector(".container");
     cardList.innerHTML = "";
-    await createCards(); // Gera um novo conjunto de cartas e reinicia o jogo
+    await createCards(); 
     resetBoard();
-    startButton.textContent = "Jogar Novamente"; // Restaura o texto do botão  
+    startButton.textContent = "Jogar Novamente"; 
 }
 
 document.getElementById("start-button").addEventListener("click", restartGame);
+
+
+
+function zoomIn() {
+    const container = document.querySelector('.container');
+    const currentScale = parseFloat(container.style.transform.replace('scale(', '').replace(')', '')) || 1;
+    const newScale = currentScale * 1.05; 
+    if (newScale <= 1) {
+        container.style.transform = `scale(${newScale})`;
+    }
+}
+
+
+function zoomOut() {
+    const container = document.querySelector('.container');
+    const currentScale = parseFloat(container.style.transform.replace('scale(', '').replace(')', '')) || 1; 
+    const newScale = currentScale * 0.9; 
+    if (newScale >= 0.5) { 
+        container.style.transform = `scale(${newScale})`;
+    }
+}
+
+document.getElementById('zoom-in').addEventListener('click', zoomIn);
+document.getElementById('zoom-out').addEventListener('click', zoomOut);
 
 createCards();
