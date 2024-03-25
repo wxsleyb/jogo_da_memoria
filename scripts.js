@@ -176,7 +176,7 @@ function zoomOut() {
     const container = document.querySelector('.container');
     const currentScale = parseFloat(container.style.transform.replace('scale(', '').replace(')', '')) || 1; 
     const newScale = currentScale * 0.9; 
-    if (newScale >= 0.5) { 
+    if (newScale >= 0.2) { 
         container.style.transform = `scale(${newScale})`;
     }
 }

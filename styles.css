@@ -69,10 +69,13 @@ h2 {
     font-size: 48px;
     transform: rotateY(180deg);
     transition: 0.4s;
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
 }
 
 .card .back {
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     border: 1px solid black;
     box-sizing: border-box;
