@@ -41,7 +41,7 @@ h2 {
     display: grid;
     grid-template-columns: repeat(8,1fr);
     gap: 1rem;
-    max-width: 100%;
+    max-width: 1500px;
     max-height: 2000px;
     margin: 0 auto;
 }
@@ -195,7 +195,8 @@ input[type="number"] {
 
 @media screen and (max-width: 1000px) {
     .container {
-        grid-template-columns: repeat(8, 1fr); 
+        grid-template-columns: repeat(8, 1fr);
+        max-width: 100%;
     }
 
     .card {
