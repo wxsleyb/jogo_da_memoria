@@ -51,7 +51,7 @@ h2 {
     height: 200px;
     cursor: pointer;
     text-align: center;
-    
+    overflow: hidden;
 }
 
 .card .front,
@@ -71,7 +71,7 @@ h2 {
 }
 
 .card .back {
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     border: 1px solid black;
     box-sizing: border-box;
