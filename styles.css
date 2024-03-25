@@ -41,14 +41,14 @@ h2 {
     display: grid;
     grid-template-columns: repeat(8,1fr);
     gap: 1rem;
-    max-width: 1500px;
+    max-width: 100%;
     max-height: 2000px;
     margin: 0 auto;
 }
 
 .card {
     position: relative;
-    height: 200px;
+    height: 150px;
     cursor: pointer;
     text-align: center;
     
@@ -193,7 +193,7 @@ input[type="number"] {
     transition: 0.4s;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
     .container {
         grid-template-columns: repeat(4, 1fr); 
     }
