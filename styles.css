@@ -205,6 +205,12 @@ input[type="number"] {
     }
 
     .card .front {
+        background-size: cover; /* Garante que a imagem cubra toda a área da carta */
+        background-repeat: no-repeat; /* Evita a repetição da imagem */
+        background-position: center; /* Centraliza a imagem dentro da carta */
+    }
+
+    .card .back {
         background-size: cover;
     }
 }
