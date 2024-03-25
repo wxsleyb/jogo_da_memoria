@@ -196,12 +196,11 @@ input[type="number"] {
 
 @media screen and (max-width: 1000px) {
     .container {
-        grid-template-columns: repeat(8,1fr);
+        grid-template-columns: repeat(4,1fr);
     }
 
     .card {
-        height: 50px;
-        width: 50px;
+        height: 100px; 
     }
 }
   
