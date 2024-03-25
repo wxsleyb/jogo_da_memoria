@@ -47,6 +47,7 @@ h2 {
 }
 
 .card {
+    
     position: relative;
     height: 200px;
     cursor: pointer;
@@ -71,9 +72,8 @@ h2 {
 }
 
 .card .back {
-    background-size: cover;
+    background-size: contain;
     background-position: center;
-    background-repeat: no-repeat;
     border: 1px solid black;
     box-sizing: border-box;
     transform: rotateY(0deg);
@@ -201,7 +201,11 @@ input[type="number"] {
     }
 
     .card {
-        height: 50px; 
+        height: 120px; 
+    }
+
+    .card .front {
+        background-size: contain;
     }
 }
   
