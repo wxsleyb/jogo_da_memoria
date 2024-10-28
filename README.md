@@ -2,6 +2,9 @@
 
 Este é um simples jogo da memória de até 32 pares desenvolvido com HTML, CSS e JavaScript. O jogo consiste em encontrar todos os pares de cartas virando-as uma de cada vez. O objetivo é encontrar todos os pares com o menor número de tentativas possível.
 
+### Link para acessar:
+https://wxsleyb.github.io/jogo_da_memoria/
+
 ### Passo a Passo para Baixar do GitHub e Jogar:
 
 1. **Clonando o Repositório:**
