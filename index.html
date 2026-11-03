@@ -1,32 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jogo da Memória</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <script src="scripts.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090919">
+  <meta name="description" content="Jogo da Memória com fotografias, diferentes dificuldades e visual Arcade Neon.">
+  <title>JOGO DA MEMÓRIA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="scripts.js" defer></script>
 </head>
-
 <body>
-    <h2>Jogo da Memória</h2>
-    <div class="start">
-        <label for="numPairs">Escolha o número de pares de cartas (máximo 32, o ideal é 16):</label>
-        <input type="number" id="numPairs" min="2" max="32" value="16">
-        <button id="start-button">Iniciar Jogo</button>
-        <div class="attempts-container">
-            <div class="attempts">Tentativas: 0</div>
-        </div>
-        <div class="zoom-controls">
-            <label for="dicas">*Aumentar ou diminuir o zoom das cartas:*</label>
-            <button id="zoom-out">-</button>
-            <button id="zoom-in">+</button>
-        </div>
-    </div>
-    <div class="congratulations-container"></div>
-    <div class="container"></div>
-</body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
 
+  <div class="app-shell">
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <h1 class="brand-name">JOGO DA <span>MEMÓRIA</span></h1>
+      </div>
+      <div class="header-actions">
+        <span class="edition"><span class="edition-dot" aria-hidden="true"></span> ARCADE NEON</span>
+        <button class="icon-button" id="sound-toggle" type="button" aria-pressed="false" aria-label="Ativar efeitos sonoros" title="Ativar efeitos sonoros">
+          <svg id="sound-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m16 9 5 6m0-6-5 6"/></svg>
+        </button>
+      </div>
+    </header>
+
+
+    <div class="game-layout">
+      <aside class="setup-panel panel" aria-labelledby="setup-heading">
+        <div class="panel-caption"><span class="section-index">01</span> CONFIGURAÇÕES DO JOGO</div>
+        <h2 id="setup-heading">Escolha a dificuldade</h2>
+        <p class="panel-description">Defina o número de pares e encontre as fotografias iguais.</p>
+
+        <div class="setting-block">
+          <div class="setting-label"><span>Dificuldade</span><span class="setting-subtle">Escolha um nível</span></div>
+          <div class="preset-list" role="group" aria-label="Dificuldade por número de pares">
+            <button type="button" class="preset" data-pairs="6"><span class="preset-text"><strong>Casual</strong><small>6 pares</small></span><span class="preset-check" aria-hidden="true">✓</span></button>
+            <button type="button" class="preset" data-pairs="12"><span class="preset-text"><strong>Intermediário</strong><small>12 pares</small></span><span class="preset-check" aria-hidden="true">✓</span></button>
+            <button type="button" class="preset is-selected" data-pairs="16" aria-pressed="true"><span class="preset-text"><strong>Insano</strong><small>16 pares</small></span><span class="preset-check" aria-hidden="true">✓</span></button>
+          </div>
+          <label class="input-label" for="numPairs">Ou personalize a quantidade <span>(2–32 pares)</span></label>
+          <div class="input-wrap"><input id="numPairs" type="number" min="2" max="32" step="1" value="16" inputmode="numeric"><span class="input-suffix">pares</span></div>
+        </div>
+
+        <p class="photo-note">As fotografias são carregadas online e mudam a cada partida.</p>
+
+        <div class="setup-bottom">
+          <button type="button" class="primary-button" id="start-button"><span aria-hidden="true">▶</span><span id="start-button-label">Iniciar partida</span><span aria-hidden="true">↗</span></button>
+          <p class="setup-status" id="setup-message" role="status">Escolha a dificuldade e clique em Iniciar partida.</p>
+        </div>
+      </aside>
+
+      <main class="game-column" aria-label="Área do jogo">
+        <div class="stats-grid" aria-label="Estatísticas da partida">
+          <div class="stat-card"><span class="stat-icon icon-violet" aria-hidden="true">◷</span><div><span class="stat-label">TEMPO</span><strong class="stat-value" id="time-value">00:00</strong></div></div>
+          <div class="stat-card"><span class="stat-icon icon-blue" aria-hidden="true">◎</span><div><span class="stat-label">TENTATIVAS</span><strong class="stat-value attempts" id="attempts-value">0</strong></div></div>
+          <div class="stat-card"><span class="stat-icon icon-pink" aria-hidden="true">▣</span><div><span class="stat-label">PARES</span><strong class="stat-value" id="pairs-value">0 <span class="stat-total">/ 16</span></strong></div></div>
+        </div>
+
+        <section class="board-panel panel" aria-labelledby="board-heading">
+          <div class="board-heading-row">
+            <div><div class="board-eyebrow">ÁREA DE JOGO <span class="live-pulse" aria-hidden="true"></span></div><h2 id="board-heading">Seu tabuleiro</h2></div>
+            <span class="level-pill" id="level-label">INSANO · 16 PARES</span>
+          </div>
+          <div class="progress-top"><span>Progresso</span><span id="progress-text">0% concluído</span></div>
+          <div class="progress-track" id="progress-track" role="progressbar" aria-label="Pares encontrados" aria-valuemin="0" aria-valuemax="16" aria-valuenow="0"><div class="progress-fill" id="progress-fill"></div></div>
+
+          <div class="board-stage" id="board-stage">
+            <div id="game-board" class="container is-preview" aria-label="Tabuleiro de cartas"></div>
+            <div class="board-hint" id="board-hint">
+              <div class="board-hint-card"><strong>Pronto para jogar?</strong><p>Escolha uma dificuldade e clique em Iniciar partida.</p><button type="button" id="preview-start" class="hint-button">Iniciar partida <span aria-hidden="true">→</span></button></div>
+            </div>
+            <div class="pause-overlay" id="pause-overlay" hidden><div class="pause-card"><span class="pause-symbol" aria-hidden="true">Ⅱ</span><h3>Jogo pausado</h3><p>Suas cartas estão te esperando.</p><button type="button" class="hint-button" id="resume-button">Continuar partida <span aria-hidden="true">→</span></button></div></div>
+          </div>
+
+          <div class="board-toolbar">
+            <div class="board-record"><span class="record-icon" aria-hidden="true">✧</span><span>SEU MELHOR RESULTADO</span><strong id="best-record">—</strong></div>
+            <div class="board-tools"><button class="pause-button" id="pause-button" type="button" disabled><span aria-hidden="true">Ⅱ</span> Pausar</button><div class="toolbar-divider" aria-hidden="true"></div><div class="zoom-controls" role="group" aria-label="Tamanho das cartas"><button type="button" id="zoom-out" aria-label="Diminuir cartas">−</button><span id="zoom-label" aria-live="polite">100%</span><button type="button" id="zoom-in" aria-label="Aumentar cartas">+</button></div></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="footer"><span>JOGO DA MEMÓRIA</span><span>Fotografias por Picsum Photos · Requer conexão à internet</span></footer>
+  </div>
+
+  <dialog class="win-dialog" id="win-dialog" aria-labelledby="win-title">
+    <div class="win-content"><button type="button" class="win-close" id="close-win" aria-label="Fechar resultado">×</button><span class="win-trophy" aria-hidden="true">🏆</span><div class="win-tag">MISSÃO CONCLUÍDA</div><h2 id="win-title">Você conseguiu!</h2><p class="win-description">Todos os pares encontrados. Belo trabalho!</p><div id="win-stars" class="win-stars" aria-label="Sua classificação">★★★</div><div class="win-stats"><div><span>TEMPO</span><strong id="win-time">00:00</strong></div><div><span>TENTATIVAS</span><strong id="win-attempts">0</strong></div><div><span>PARES</span><strong id="win-pairs">16</strong></div></div><p id="win-record" class="win-record"></p><button type="button" id="play-again" class="primary-button"><span aria-hidden="true">↻</span><span>Jogar novamente</span><span aria-hidden="true">↗</span></button></div>
+  </dialog>
+</body>
 </html>
